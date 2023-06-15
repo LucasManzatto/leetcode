@@ -23,6 +23,7 @@
 # Input: s = "(]"
 # Output: false
 
+
 def check_valid(s: str) -> bool:
     return (
         len(s) % 2 == 0
@@ -32,31 +33,36 @@ def check_valid(s: str) -> bool:
     )
 
 
-def isValid(s: str) -> bool:
+def find_closing_pair(s, opening, valids, seen):
+    last_seen_index = None
+    for index, closing in enumerate(s):
+        if valids[opening] == closing and index not in seen:
+            last_seen_index = index
+    return last_seen_index
+
+
+def isValid(s: str, valids) -> bool:
     if not check_valid(s):
         return False
-    valids = {"(": ")", "{": "}", "[": "]"}
-    test_s = s
+    seen = []
+    pairs = []
     for index, c in enumerate(s):
+        if index in seen:
+            continue
         if c in valids.keys():
-            print(c)
-            last_closing_index = -1
-            for index2, c2 in enumerate(s):
-                if valids[c] == c2:
-                    last_closing_index = index2
-            print(s)
-            print(last_closing_index)
-            print(s[index: last_closing_index])
-            
-            print(last_closing_index)
-# def isValid(s: str) -> bool:
-#     return (
-#         len(s) % 2 == 0
-#         and (s.count("(") + s.count(")")) % 2 == 0
-#         and (s.count("{") + s.count("}")) % 2 == 0
-#         and (s.count("[") + s.count("]")) % 2 == 0
-#     )
+            seen.append(index)
+            closing_pair_index = find_closing_pair(
+                s=s, opening=c, valids=valids, seen=seen
+            )
+            if not closing_pair_index:
+                return False
+            if not check_valid(s[index : closing_pair_index + 1]):
+                return False
+            seen.append(closing_pair_index)
+    return True
 
 
 s = "(())[]{}"
-result = isValid(s=s)
+valids = {"(": ")", "{": "}", "[": "]"}
+
+result = isValid(s=s, valids=valids)
