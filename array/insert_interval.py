@@ -40,7 +40,12 @@ class Solution:
         while current < len(intervals) - 1:
             current_value = intervals[current]
             next_value = intervals[current + 1]
+
             overlap_interval = self.overlaps(current_value, next_value)
+            
+            # If there is a overlap, remove the current and next value, then add the overlap value
+            # Since 2 values are removed and only one added, the current index remains the same to check
+            # the new overlap value with the next value
             if overlap_interval:
                 intervals.remove(current_value)
                 intervals.remove(next_value)
@@ -51,6 +56,17 @@ class Solution:
 
 
     def overlaps(self, current, next):
+        """
+        Check if two intervals overlap and return the merged interval if they do.
+
+        Args:
+            current (List[int]): The first interval represented as [start, end].
+            next (List[int]): The second interval represented as [start, end].
+
+        Returns:
+            List[int] or None: The merged interval if there is an overlap, or None if there is no overlap.
+
+        """
         if current[1] >= next[0]:
             return [current[0], max(current[1], next[1])]
         return None
