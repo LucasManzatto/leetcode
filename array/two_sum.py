@@ -26,6 +26,7 @@ def twoSum(nums: List[int], target: int) -> List[int]:
             if x + y == target:
                 return sorted([x_index, y_index + x_index + 1])
 
+
 # Time complexity solution
 # Using a hash table to transverse the array only one time
 def twoSum2(nums: List[int], target: int) -> List[int]:

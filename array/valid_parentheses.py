@@ -26,7 +26,7 @@ class Solution:
         seen = []
         pairs = []
         for index, c in enumerate(s):
-            print(index,c,seen)
+            print(index, c, seen)
             if index in seen:
                 continue
             if c in valids.keys():

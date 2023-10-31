@@ -1,4 +1,4 @@
-'''
+"""
 Given the root of a binary tree, invert the tree, and return its root.
 
 Example 1:
@@ -18,22 +18,29 @@ Constraints:
 
 The number of nodes in the tree is in the range [0, 100].
 -100 <= Node.val <= 100
-'''
+"""
 
-from binary_tree import TreeNode, post_order_transversal, pre_order_traversal, reverse_tree, in_order_traversal, visualize_binary_tree
+from binary_tree import (
+    TreeNode,
+    post_order_transversal,
+    pre_order_traversal,
+    reverse_tree,
+    in_order_traversal,
+    visualize_binary_tree,
+)
 from typing import Optional
+
 
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return
-        aux = root.left
-        root.left = root.right
-        root.right = aux
+        root.left, root.right = root.right, root.left
         self.invertTree(root=root.left)
         self.invertTree(root=root.right)
         return root
-    
+
+
 root = TreeNode(val=4)
 root.left = TreeNode(val=2)
 root.left.left = TreeNode(val=1)

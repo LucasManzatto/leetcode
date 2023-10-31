@@ -1,4 +1,4 @@
-'''
+"""
 You are given an array of non-overlapping intervals intervals where intervals[i] = [starti, endi] represent the start and the end of the ith interval and intervals is sorted in ascending order by starti. You are also given an interval newInterval = [start, end] that represents the start and end of another interval.
 
 Insert newInterval into intervals such that intervals is still sorted in ascending order by starti and intervals still does not have any overlapping intervals (merge overlapping intervals if necessary).
@@ -26,11 +26,14 @@ intervals[i].length == 2
 intervals is sorted by starti in ascending order.
 newInterval.length == 2
 0 <= start <= end <= 105
-'''
+"""
 from typing import List
 
+
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+    def insert(
+        self, intervals: List[List[int]], newInterval: List[int]
+    ) -> List[List[int]]:
         if not intervals:
             return [newInterval]
         intervals.append(newInterval)
@@ -42,7 +45,7 @@ class Solution:
             next_value = intervals[current + 1]
 
             overlap_interval = self.overlaps(current_value, next_value)
-            
+
             # If there is a overlap, remove the current and next value, then add the overlap value
             # Since 2 values are removed and only one added, the current index remains the same to check
             # the new overlap value with the next value
@@ -53,7 +56,6 @@ class Solution:
             else:
                 current += 1
         return intervals
-
 
     def overlaps(self, current, next):
         """
@@ -70,9 +72,9 @@ class Solution:
         if current[1] >= next[0]:
             return [current[0], max(current[1], next[1])]
         return None
-    
-    
-intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
-newInterval = [4,8]
+
+
+intervals = [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]]
+newInterval = [4, 8]
 
 print(Solution().insert(intervals=intervals, newInterval=newInterval))

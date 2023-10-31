@@ -1,5 +1,6 @@
 import graphviz
 
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -14,6 +15,7 @@ def insert(root, val):
         root.right = insert(root.right, val)
     return root
 
+
 def reverse_tree(root):
     if not root:
         return
@@ -24,6 +26,7 @@ def reverse_tree(root):
     reverse_tree(root=root.right)
     return root
 
+
 def in_order_traversal(root: TreeNode):
     if not root:
         return
@@ -31,12 +34,14 @@ def in_order_traversal(root: TreeNode):
     print(root.val)
     in_order_traversal(root.right)
 
+
 def pre_order_traversal(root: TreeNode):
     if not root:
         return
     print(root.val)
     pre_order_traversal(root.right)
     pre_order_traversal(root.left)
+
 
 def post_order_transversal(root: TreeNode):
     if not root:
@@ -61,4 +66,4 @@ def visualize_binary_tree(root):
             add_nodes_edges(node.right)
 
     add_nodes_edges(root)
-    dot.render('binary_tree', view=True, format='png')
+    dot.render("binary_tree", view=True, format="png")

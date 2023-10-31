@@ -1,7 +1,8 @@
-class Node():
+class Node:
     def __init__(self, val):
         self.val = val
         self.next = None
+
 
 def merge(list1, list2):
     node = list1

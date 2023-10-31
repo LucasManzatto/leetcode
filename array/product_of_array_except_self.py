@@ -2,7 +2,7 @@ from functools import reduce
 from typing import List
 import math
 
-'''
+"""
 Given an integer array nums, return an array answer such that answer[i] is equal 
 to the product of all the elements of nums except nums[i].
 
@@ -31,7 +31,9 @@ The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit int
 
 Follow up: Can you solve the problem in O(1) extra space complexity? 
 (The output array does not count as extra space for space complexity analysis.)
-'''
+"""
+
+
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         values = []
@@ -40,11 +42,11 @@ class Solution:
             if value in values_already_calculated.keys():
                 values.append(values_already_calculated[value])
             else:
-                result = math.prod(nums[:index] + nums[index+1:])
+                result = math.prod(nums[:index] + nums[index + 1 :])
                 values.append(result)
                 values_already_calculated[value] = result
         return values
-    
-    
-nums = [1,2,3,4]
+
+
+nums = [1, 2, 3, 4]
 print(Solution().productExceptSelf(nums=nums))

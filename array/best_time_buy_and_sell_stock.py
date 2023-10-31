@@ -4,7 +4,6 @@
 
 # Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
- 
 
 # Example 1:
 
@@ -20,6 +19,7 @@
 
 from typing import List
 
+
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         if sorted(prices, reverse=True) == prices:
@@ -31,8 +31,7 @@ class Solution:
                     max_profit = next_price - price
 
         return max_profit
-            
 
 
-prices = [7,1,5,3,6,4]
+prices = [7, 1, 5, 3, 6, 4]
 result = Solution().maxProfit(prices=prices)
