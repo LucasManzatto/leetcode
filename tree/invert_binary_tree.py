@@ -20,13 +20,9 @@ The number of nodes in the tree is in the range [0, 100].
 -100 <= Node.val <= 100
 """
 
-from binary_tree import (
+from utils.binary_tree import (
     TreeNode,
-    post_order_transversal,
-    pre_order_traversal,
     reverse_tree,
-    in_order_traversal,
-    visualize_binary_tree,
 )
 from typing import Optional
 
