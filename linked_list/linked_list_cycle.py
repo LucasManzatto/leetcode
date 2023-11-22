@@ -39,8 +39,7 @@ Follow up: Can you solve it using O(1) (i.e. constant) memory?
 """
 
 from typing import Optional
-from utils.linked_list import ListNode, SinglyLinkedList
-
+from structures.linked_list import ListNode
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
@@ -60,17 +59,8 @@ value3 = ListNode(-4)
 root = ListNode(1)
 root.next = value1
 value1.next = root
-# value2.next = value3
-# value3.next = value1
 
-pointer1 = 0
-pointer2 = 0
-
-
-# list = SinglyLinkedList(val=3)
-# list.append(val=2)
-# list.append(val=0)
-# list.append(val=-4)
 
 result = Solution().hasCycle(head=root)
 print(result)
+
