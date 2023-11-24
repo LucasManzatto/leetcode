@@ -77,6 +77,57 @@ class SinglyLinkedList:
             last = last.next
         return last
 
+    def has_cycle(self) -> bool:
+        """
+        Checks if the linked list contains a cycle using Floyd's Tortoise and Hare algorithm.
+
+        Returns:
+            bool: True if a cycle is present, False otherwise.
+        """
+        first_pointer = self.head
+        second_pointer = self.head
+        while second_pointer and second_pointer.next:
+            first_pointer = first_pointer.next
+            second_pointer = second_pointer.next.next
+            if first_pointer == second_pointer:
+                return True
+        return False
+
+    def reversed_list(self) -> ListNode:
+        """
+        Reverses the direction of the linked list.
+
+        Returns:
+            ListNode: The new head of the reversed linked list (previously the last element).
+        """
+        current = self.head
+        previous = None
+        next = None
+        while current:
+            next = (
+                current.next
+            )  # stores the next node in the original list before we change the current.next pointer.
+            current.next = previous  # reverses the direction of the current node's next pointer, making it point to the previous node.
+            previous = current
+            current = next
+        return previous  # previous is the new head of the list (Last element)
+    
+    def reverse_list(self):
+        """
+        Reverse the order of nodes in the linked list.
+
+        This method modifies the linked list in place by reversing the order of its nodes.
+        The head of the original list becomes the new tail, and the last node becomes the new head.
+
+        Example:
+        ```
+        linked_list = LinkedList([1, 2, 3, 4, 5])
+        linked_list.reverse_list()
+        print(linked_list)  # Output: 5 -> 4 -> 3 -> 2 -> 1
+        ```
+        """
+        self.root = self.reversed_list()
+
     def __repr__(self):
         return "SinglyLinkedList()"
 
