@@ -100,7 +100,7 @@ class SinglyLinkedList:
         Returns:
             ListNode: The new head of the reversed linked list (previously the last element).
         """
-        current = self.head
+        current = self.root
         previous = None
         next = None
         while current:
@@ -111,8 +111,8 @@ class SinglyLinkedList:
             previous = current
             current = next
         return previous  # previous is the new head of the list (Last element)
-    
-    def reverse_list(self):
+
+    def reverse(self):
         """
         Reverse the order of nodes in the linked list.
 
@@ -138,3 +138,9 @@ class SinglyLinkedList:
             list.append(root.val)
             root = root.next
         return str(list)
+
+    def __reversed__(self):
+        current = self.reversed_list()
+        while current:
+            yield current.val
+            current = current.next
