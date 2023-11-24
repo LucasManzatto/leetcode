@@ -38,11 +38,21 @@ class SinglyLinkedList:
         """
         last = self.last_node()
         if isinstance(val, list):
-            for x in val:
-                last.next = ListNode(x=x)
-                last = last.next
+            self._append_list(node=last, values=val)
         else:
             last.next = ListNode(x=val)
+
+    def _append_list(self, node: ListNode, values: list[Any]):
+        """
+        Append a list of values to the end of the linked list.
+
+        Args:
+            node (ListNode): The current last node in the linked list.
+            values (list[Any]): The list of values to be appended.
+        """
+        for x in values:
+            node.next = ListNode(x=x)
+            node = node.next
 
     def push(self, val: Any):
         """
