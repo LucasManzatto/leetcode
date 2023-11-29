@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Iterator
 
 
 class ListNode:
@@ -128,10 +128,27 @@ class SinglyLinkedList:
         """
         self.root = self.reversed_list()
 
-    def __repr__(self):
-        return "SinglyLinkedList()"
+    def size(self) -> int:
+        """
+        Return the number of nodes in the linked list.
 
-    def __str__(self):
+        Returns:
+            int: The number of nodes in the linked list.
+        """
+        node = self.root
+        count = 0
+        while node:
+            count += 1
+            node = node.next
+        return count
+
+    def to_string(self) -> str:
+        """
+        Convert the linked list to a string.
+
+        Returns:
+            str: A string representation of the linked list.
+        """
         list = []
         root = self.root
         while root:
@@ -139,8 +156,41 @@ class SinglyLinkedList:
             root = root.next
         return str(list)
 
-    def __reversed__(self):
+    def __repr__(self) -> str:
+        """
+        Return a string representation of the linked list for debugging.
+
+        Returns:
+            str: A string representation of the linked list.
+        """
+        return "SinglyLinkedList()"
+
+    def __str__(self) -> str:
+        """
+        Return a string representation of the linked list.
+
+        Returns:
+            str: A string representation of the linked list.
+        """
+        return self.to_string()
+
+    def __reversed__(self) -> Iterator[Any]:
+        """
+        Return a reverse iterator for the linked list.
+
+        Yields:
+            Any: Values of the linked list in reverse order.
+        """
         current = self.reversed_list()
         while current:
             yield current.val
             current = current.next
+
+    def __len__(self) -> int:
+        """
+        Get the length of the linked list.
+
+        Returns:
+            int: The number of nodes in the linked list.
+        """
+        return self.size()
