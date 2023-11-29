@@ -76,6 +76,20 @@ class SinglyLinkedList:
         while last.next:
             last = last.next
         return last
+    
+    def middle_node(self) -> ListNode:
+        """
+        Get the middle node of the linked list.
+
+        Returns:
+            ListNode: The last node of the linked list.
+        """
+        slow = self.root
+        fast = self.root
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
 
     def has_cycle(self) -> bool:
         """
