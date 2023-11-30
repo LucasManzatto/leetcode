@@ -27,11 +27,6 @@ The number of nodes in the list is the range [0, 5000].
 
 Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
 """
-import os, sys
-
-path = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0] + "\\"
-sys.path.append(path)
-
 from typing import Optional
 from structures.linked_list import ListNode
 
@@ -66,3 +61,4 @@ result = Solution().reverseList(head=root)
 while result:
     print(result.val)
     result = result.next
+
