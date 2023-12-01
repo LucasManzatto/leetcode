@@ -178,3 +178,34 @@ class BinaryTree:
         self._post_order_traversal(root=root.right)
         self._post_order_traversal(root=root.left)
         print(root.val)
+
+
+# Example usage of the BinaryTree class
+if __name__ == "__main__":
+    values = [10, 5, 15, 3, 7, 12, 18]
+
+    # Create a binary tree
+    binary_tree = BinaryTree(val=values)
+
+    # Print the original tree using in-order traversal
+    print("Original Tree (In-order Traversal):")
+    binary_tree.in_order_traversal()
+    print()
+
+    # Reverse the binary tree
+    binary_tree.reverse_tree()
+
+    # Print the reversed tree using in-order traversal
+    print("Reversed Tree (In-order Traversal):")
+    binary_tree.in_order_traversal()
+    print()
+
+    # Perform pre-order traversal on the reversed tree
+    print("Reversed Tree (Pre-order Traversal):")
+    binary_tree.pre_order_traversal()
+    print()
+
+    # Perform post-order traversal on the reversed tree
+    print("Reversed Tree (Post-order Traversal):")
+    binary_tree.post_order_traversal()
+    
