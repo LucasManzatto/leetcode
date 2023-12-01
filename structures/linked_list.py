@@ -35,6 +35,9 @@ class SinglyLinkedList:
 
         Args:
             val (Union[Any, list]): The value or list of values to be appended.
+
+        Time Complexity: O(n), where n is the length of the input list.
+        Space Complexity: O(1) for a single value, O(n) for a list of values.
         """
         last = self.last_node()
         if isinstance(val, list):
@@ -49,6 +52,9 @@ class SinglyLinkedList:
         Args:
             node (ListNode): The current last node in the linked list.
             values (list[Any]): The list of values to be appended.
+
+        Time Complexity: O(n), where n is the length of the input list.
+        Space Complexity: O(1)
         """
         for x in values:
             node.next = ListNode(x=x)
@@ -60,6 +66,9 @@ class SinglyLinkedList:
 
         Args:
             val (Any): The value to be prepended.
+
+        Time Complexity: O(1)
+        Space Complexity: O(1)
         """
         node = ListNode(x=val)
         node.next = self.root
@@ -71,18 +80,24 @@ class SinglyLinkedList:
 
         Returns:
             ListNode: The last node of the linked list.
+
+        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Space Complexity: O(1)
         """
         last = self.root
         while last.next:
             last = last.next
         return last
-    
+
     def middle_node(self) -> ListNode:
         """
         Get the middle node of the linked list.
 
         Returns:
             ListNode: The last node of the linked list.
+
+        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Space Complexity: O(1)
         """
         slow = self.root
         fast = self.root
@@ -97,6 +112,9 @@ class SinglyLinkedList:
 
         Returns:
             bool: True if a cycle is present, False otherwise.
+
+        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Space Complexity: O(1)
         """
         first_pointer = self.head
         second_pointer = self.head
@@ -113,6 +131,9 @@ class SinglyLinkedList:
 
         Returns:
             ListNode: The new head of the reversed linked list (previously the last element).
+
+        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Space Complexity: O(1)
         """
         current = self.root
         previous = None
@@ -139,6 +160,9 @@ class SinglyLinkedList:
         linked_list.reverse_list()
         print(linked_list)  # Output: 5 -> 4 -> 3 -> 2 -> 1
         ```
+
+        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Space Complexity: O(1)
         """
         self.root = self.reversed_list()
 
@@ -148,6 +172,9 @@ class SinglyLinkedList:
 
         Returns:
             int: The number of nodes in the linked list.
+
+        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Space Complexity: O(1)
         """
         node = self.root
         count = 0
@@ -162,6 +189,9 @@ class SinglyLinkedList:
 
         Returns:
             str: A string representation of the linked list.
+
+        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Space Complexity: O(n)
         """
         list = []
         root = self.root
