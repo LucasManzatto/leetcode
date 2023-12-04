@@ -197,6 +197,9 @@ class SinglyLinkedList:
 
         Returns:
             SinglyLinkedList: A new instance of the SinglyLinkedList class that is a copy of the original linked list.
+
+        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Space Complexity: O(n), where n is the number of nodes in the linked list.
         """
         return SinglyLinkedList(list(self))
 
