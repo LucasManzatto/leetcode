@@ -26,7 +26,8 @@ class SinglyLinkedList:
         last_node(self) -> ListNode: Get the last node of the linked list.
         middle_node(self) -> ListNode: Get the middle node of the linked list.
         has_cycle(self) -> bool: Checks if the linked list contains a cycle.
-        reverse(self): Reverse the order of nodes in the linked list.
+        reverse_list(self): Reverse the order of nodes in the linked list.
+        reverse(self): Reverse the order of nodes in the linked list in place.
         size(self) -> int: Return the number of nodes in the linked list.
         to_string(self) -> str: Convert the linked list to a string.
         __repr__(self) -> str: Return a string representation of the linked list for debugging.
@@ -157,7 +158,7 @@ class SinglyLinkedList:
                 return True
         return False
 
-    def _reversed_list(self) -> ListNode:
+    def reversed_list(self) -> ListNode:
         """
         Reverses the direction of the linked list.
 
@@ -165,19 +166,11 @@ class SinglyLinkedList:
             ListNode: The new head of the reversed linked list (previously the last element).
 
         Time Complexity: O(n), where n is the number of nodes in the linked list.
-        Space Complexity: O(1)
+        Space Complexity: O(n), where n is the number of nodes in the linked list.
         """
-        current = self.root
-        previous = None
-        next = None
-        while current:
-            next = (
-                current.next
-            )  # stores the next node in the original list before we change the current.next pointer.
-            current.next = previous  # reverses the direction of the current node's next pointer, making it point to the previous node.
-            previous = current
-            current = next
-        return previous  # previous is the new head of the list (Last element)
+        reversed_list = self.copy()
+        reversed_list.root = self._reverse(root=reversed_list.root)
+        return reversed_list
 
     def reverse(self):
         """
@@ -189,14 +182,36 @@ class SinglyLinkedList:
         Example:
         ```
         linked_list = LinkedList([1, 2, 3, 4, 5])
-        linked_list.reverse_list()
-        print(linked_list)  # Output: 5 -> 4 -> 3 -> 2 -> 1
+        linked_list.reverse()
+        print(linked_list)  # Output: [5, 4, 3, 2, 1]
         ```
 
         Time Complexity: O(n), where n is the number of nodes in the linked list.
         Space Complexity: O(1)
         """
-        self.root = self._reversed_list()
+        self.root = self._reverse(root=self.root)
+
+    def copy(self):
+        """
+        Creates a new instance of the SinglyLinkedList class that is a copy of the original linked list.
+
+        Returns:
+            SinglyLinkedList: A new instance of the SinglyLinkedList class that is a copy of the original linked list.
+        """
+        return SinglyLinkedList(list(self))
+
+    def _reverse(self, root):
+        current = root
+        previous = None
+        next = None
+        while current:
+            next = (
+                current.next
+            )  # stores the next node in the original list before we change the current.next pointer.
+            current.next = previous  # reverses the direction of the current node's next pointer, making it point to the previous node.
+            previous = current
+            current = next
+        return previous
 
     def size(self) -> int:
         """
@@ -212,11 +227,12 @@ class SinglyLinkedList:
 
     def _equals(self, other) -> bool:
         if not type(self) == type(other):
-            raise ValueError("Input value must be a SinglyLinkedList")
-        current, current_other = self.root, other.root
+            return False
+
         if len(self) != len(other):
             return False
 
+        current, current_other = self.root, other.root
         while current and current_other:
             if current.val != current_other.val:
                 return False
@@ -269,7 +285,7 @@ class SinglyLinkedList:
         Yields:
             Any: Values of the linked list in reverse order.
         """
-        current = self.reversed_list()
+        current = self.reversed_list().root
         while current:
             yield current.val
             current = current.next
@@ -309,17 +325,29 @@ class SinglyLinkedList:
 
 if __name__ == "__main__":
     linked_list = SinglyLinkedList([1, 2, 3])  # Initialize a linked list with values
+    print(f"Original List: ", linked_list)
     other_linked_list = SinglyLinkedList(
         [1, 2, 3]
     )  # Initialize a linked list with values
-    is_equal = linked_list == other_linked_list  # Check if two lists are equal
+    print(f"Other List: ", other_linked_list)
+    print(f"Lists are equal: ", linked_list == other_linked_list)
     linked_list.append(4)  # Append a value to the end of the list
+    print(f"List appended 4: ", linked_list)
+    print(f"Lists are equal: ", linked_list == other_linked_list)
     linked_list.extend([5, 6, 7])  # Extend the list with a list of values
+    print(f"List extended [5, 6, 7]: ", linked_list)
     linked_list.push(0)  # Prepend a value to the front of the list
-    last_node = linked_list.last_node()  # Get the last node of the list
-    middle_node = linked_list.middle_node()  # Get the middle node of the list
+    print(f"List push 0: ", linked_list)
+    last_node = linked_list.last_node().val  # Get the last node of the list
+    print(f"List last node: ", last_node)
+    middle_node = linked_list.middle_node().val  # Get the middle node of the list
+    print(f"List middle node: ", middle_node)
     has_cycle = linked_list.has_cycle()  # Check if the list contains a cycle
+    print(f"List has cycle: ", has_cycle)
+    print(f"Final List: ", linked_list)
     linked_list.reverse()  # Reverse the order of nodes in the list
+    print(f"Reversed List (in place): ", linked_list)
     size = linked_list.size()  # Get the number of nodes in the list
+    print(f"List size: ", size)
     string_representation = linked_list.to_string()  # Convert the list to a string
-    print(linked_list)
+    reversed_list = list(reversed(linked_list))
