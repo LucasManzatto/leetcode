@@ -190,7 +190,6 @@ if __name__ == "__main__":
     # Print the original tree using in-order traversal
     print("Original Tree (In-order Traversal):")
     binary_tree.in_order_traversal()
-    print()
 
     # Reverse the binary tree
     binary_tree.reverse_tree()
@@ -198,12 +197,10 @@ if __name__ == "__main__":
     # Print the reversed tree using in-order traversal
     print("Reversed Tree (In-order Traversal):")
     binary_tree.in_order_traversal()
-    print()
 
     # Perform pre-order traversal on the reversed tree
     print("Reversed Tree (Pre-order Traversal):")
     binary_tree.pre_order_traversal()
-    print()
 
     # Perform post-order traversal on the reversed tree
     print("Reversed Tree (Post-order Traversal):")
