@@ -97,13 +97,13 @@ class TestLinkedList:
     ):
         # Arrange
         linked_list = SinglyLinkedList(initial_values)
+        expected_list = SinglyLinkedList(expected_result)
 
         # Act
         linked_list.reverse()
-        result = linked_list.to_string()
 
         # Assert
-        assert result == str(expected_result)
+        assert linked_list == expected_list
 
     def test_initialize_singly_linked_list_with_none(self):
         # Arrange & Act & Assert
@@ -143,17 +143,6 @@ class TestLinkedList:
         # Assert
         assert linked_list.has_cycle()
 
-    def test_reverse_linked_list(self):
-        # Arrange
-        linked_list = SinglyLinkedList([1, 2, 3, 4, 5])
-        expected_linked_list = SinglyLinkedList([5, 4, 3, 2, 1])
-
-        # Act
-        linked_list.reverse()
-
-        # Assert
-        assert linked_list == expected_linked_list
-
     def test_linked_list_iterable(self):
         # Arrange
         linked_list = SinglyLinkedList([1, 2, 3])
@@ -164,3 +153,13 @@ class TestLinkedList:
 
         # Assert
         assert result == expected_result
+
+    def test_copy_creates_copy_of_original_linked_list(self):
+        # Arrange
+        linked_list = SinglyLinkedList([1, 2, 3, 4, 5])
+
+        # Act
+        copy_linked_list = linked_list.copy()
+        copy_linked_list.append(6)
+        # Assert
+        assert copy_linked_list != linked_list
