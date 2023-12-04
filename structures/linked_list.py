@@ -1,4 +1,6 @@
 from typing import Any, Iterator
+from collections.abc import Iterable
+import inspect
 
 
 class ListNode:
@@ -14,6 +16,24 @@ class SinglyLinkedList:
 
     Attributes:
         root (ListNode): The root node of the linked list.
+        tail (ListNode): The tail node of the linked list.
+
+    Methods:
+        __init__(self, val: Any | list): Initialize a new singly linked list.
+        append(self, val: Any): Append a value to the end of the linked list.
+        extend(self, values: list): Extend the linked list with a list of values.
+        push(self, val: Any): Prepend a value to the front of the linked list.
+        last_node(self) -> ListNode: Get the last node of the linked list.
+        middle_node(self) -> ListNode: Get the middle node of the linked list.
+        has_cycle(self) -> bool: Checks if the linked list contains a cycle.
+        reverse(self): Reverse the order of nodes in the linked list.
+        size(self) -> int: Return the number of nodes in the linked list.
+        to_string(self) -> str: Convert the linked list to a string.
+        __repr__(self) -> str: Return a string representation of the linked list for debugging.
+        __str__(self) -> str: Return a string representation of the linked list.
+        __reversed__(self) -> Iterator[Any]: Return a reverse iterator for the linked list.
+        __len__(self) -> int: Get the length of the linked list.
+        __iter__(self, other) -> Iterator[Any]: Returns an iterator object.
     """
 
     def __init__(self, val: Any | list):
@@ -23,42 +43,51 @@ class SinglyLinkedList:
         Args:
             val (Union[Any, list]): The initial value of the linked list.
         """
-        if isinstance(val, list):
+        if val is None:
+            raise ValueError("Input value cannot be None.")
+        is_iterable = isinstance(val, Iterable)
+        self.counter = 1
+        if is_iterable:
             self.root = ListNode(x=val[0])
-            self.append(val=val[1:])
+            self.tail = self.root
+            self.extend(values=val[1:])
         else:
             self.root = ListNode(x=val)
+            self.tail = self.root
 
-    def append(self, val: Any | list):
+    def append(self, val: Any):
         """
-        Append a value or a list of values to the end of the linked list.
+        Append a value to the end of the linked list.
 
         Args:
-            val (Union[Any, list]): The value or list of values to be appended.
+            val (Any): The value to be appended.
 
-        Time Complexity: O(n), where n is the length of the input list.
-        Space Complexity: O(1) for a single value, O(n) for a list of values.
+        Time Complexity: O(1)
+        Space Complexity: O(1)
         """
-        last = self.last_node()
-        if isinstance(val, list):
-            self._append_list(node=last, values=val)
-        else:
-            last.next = ListNode(x=val)
+        if val is None:
+            raise ValueError("Input value cannot be None.")
+        last = self.tail
+        last.next = ListNode(x=val)
+        self.tail = last.next
+        self.counter += 1
 
-    def _append_list(self, node: ListNode, values: list[Any]):
+    def extend(self, values: list):
         """
-        Append a list of values to the end of the linked list.
+        Extend the linked list with a list of values.
 
         Args:
-            node (ListNode): The current last node in the linked list.
-            values (list[Any]): The list of values to be appended.
+            values (list): The list of values to be appended.
 
         Time Complexity: O(n), where n is the length of the input list.
         Space Complexity: O(1)
         """
+        is_iterable = isinstance(values, Iterable)
+        if not is_iterable:
+            raise ValueError("Input value must be iterable.")
+        last = self.tail
         for x in values:
-            node.next = ListNode(x=x)
-            node = node.next
+            self.append(val=x)
 
     def push(self, val: Any):
         """
@@ -70,9 +99,13 @@ class SinglyLinkedList:
         Time Complexity: O(1)
         Space Complexity: O(1)
         """
+        if val is None:
+            raise ValueError("Input value cannot be None.")
         node = ListNode(x=val)
         node.next = self.root
         self.root = node
+        self.counter += 1
+        return node
 
     def last_node(self) -> ListNode:
         """
@@ -81,24 +114,23 @@ class SinglyLinkedList:
         Returns:
             ListNode: The last node of the linked list.
 
-        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Time Complexity: O(1)
         Space Complexity: O(1)
         """
-        last = self.root
-        while last.next:
-            last = last.next
-        return last
+        return self.tail
 
     def middle_node(self) -> ListNode:
         """
         Get the middle node of the linked list.
 
         Returns:
-            ListNode: The last node of the linked list.
+            ListNode: The middle node of the linked list.
 
         Time Complexity: O(n), where n is the number of nodes in the linked list.
         Space Complexity: O(1)
         """
+        if self.has_cycle():
+            raise ValueError("Linked list contains a cycle.")
         slow = self.root
         fast = self.root
         while fast and fast.next:
@@ -116,8 +148,8 @@ class SinglyLinkedList:
         Time Complexity: O(n), where n is the number of nodes in the linked list.
         Space Complexity: O(1)
         """
-        first_pointer = self.head
-        second_pointer = self.head
+        first_pointer = self.root
+        second_pointer = self.root
         while second_pointer and second_pointer.next:
             first_pointer = first_pointer.next
             second_pointer = second_pointer.next.next
@@ -125,7 +157,7 @@ class SinglyLinkedList:
                 return True
         return False
 
-    def reversed_list(self) -> ListNode:
+    def _reversed_list(self) -> ListNode:
         """
         Reverses the direction of the linked list.
 
@@ -164,7 +196,7 @@ class SinglyLinkedList:
         Time Complexity: O(n), where n is the number of nodes in the linked list.
         Space Complexity: O(1)
         """
-        self.root = self.reversed_list()
+        self.root = self._reversed_list()
 
     def size(self) -> int:
         """
@@ -173,15 +205,24 @@ class SinglyLinkedList:
         Returns:
             int: The number of nodes in the linked list.
 
-        Time Complexity: O(n), where n is the number of nodes in the linked list.
+        Time Complexity: O(1)
         Space Complexity: O(1)
         """
-        node = self.root
-        count = 0
-        while node:
-            count += 1
-            node = node.next
-        return count
+        return self.counter
+
+    def _equals(self, other) -> bool:
+        if not type(self) == type(other):
+            raise ValueError("Input value must be a SinglyLinkedList")
+        current, current_other = self.root, other.root
+        if len(self) != len(other):
+            return False
+
+        while current and current_other:
+            if current.val != current_other.val:
+                return False
+            current = current.next
+            current_other = current_other.next
+        return True
 
     def to_string(self) -> str:
         """
@@ -199,6 +240,9 @@ class SinglyLinkedList:
             list.append(root.val)
             root = root.next
         return str(list)
+
+    def __eq__(self, other) -> bool:
+        return self._equals(other=other)
 
     def __repr__(self) -> str:
         """
@@ -238,3 +282,44 @@ class SinglyLinkedList:
             int: The number of nodes in the linked list.
         """
         return self.size()
+
+    def __iter__(self):
+        """
+        Returns an iterator object that allows iteration over the values of the linked list.
+
+        Yields:
+            The value of each node in the linked list.
+
+        Example:
+            linked_list = SinglyLinkedList([1, 2, 3, 4, 5])
+            for value in linked_list:
+                print(value)
+            Output:
+                1
+                2
+                3
+                4
+                5
+        """
+        current = self.root
+        while current:
+            yield current.val
+            current = current.next
+
+
+if __name__ == "__main__":
+    linked_list = SinglyLinkedList([1, 2, 3])  # Initialize a linked list with values
+    other_linked_list = SinglyLinkedList(
+        [1, 2, 3]
+    )  # Initialize a linked list with values
+    is_equal = linked_list == other_linked_list  # Check if two lists are equal
+    linked_list.append(4)  # Append a value to the end of the list
+    linked_list.extend([5, 6, 7])  # Extend the list with a list of values
+    linked_list.push(0)  # Prepend a value to the front of the list
+    last_node = linked_list.last_node()  # Get the last node of the list
+    middle_node = linked_list.middle_node()  # Get the middle node of the list
+    has_cycle = linked_list.has_cycle()  # Check if the list contains a cycle
+    linked_list.reverse()  # Reverse the order of nodes in the list
+    size = linked_list.size()  # Get the number of nodes in the list
+    string_representation = linked_list.to_string()  # Convert the list to a string
+    print(linked_list)
