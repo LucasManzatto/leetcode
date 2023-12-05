@@ -163,3 +163,53 @@ class TestLinkedList:
         copy_linked_list.append(6)
         # Assert
         assert copy_linked_list != linked_list
+
+    def test_insert_value_at_index_0_in_non_empty_linked_list(self):
+        linked_list = SinglyLinkedList([1, 2, 3, 4, 5])
+        linked_list.insert(6, 0)
+        assert linked_list.to_string() == "[6, 1, 2, 3, 4, 5]"
+
+    # Inserting a value at the end of a non-empty linked list
+    def test_insert_value_at_end_of_non_empty_linked_list(self):
+        linked_list = SinglyLinkedList([1, 2, 3, 4, 5])
+        linked_list.insert(6, len(linked_list))
+        assert linked_list.to_string() == "[1, 2, 3, 4, 5, 6]"
+
+    # Inserting a value at a middle index of a non-empty linked list
+    def test_insert_value_at_middle_index_of_non_empty_linked_list(self):
+        linked_list = SinglyLinkedList([1, 2, 3, 4, 5])
+        linked_list.insert(6, 2)
+        assert linked_list.to_string() == "[1, 2, 6, 3, 4, 5]"
+
+    # Inserting a value at an index greater than the length of the linked list
+    def test_insert_value_at_index_greater_than_length_of_linked_list(self):
+        linked_list = SinglyLinkedList([1, 2, 3, 4, 5])
+        with pytest.raises(IndexError):
+            linked_list.insert(6, len(linked_list) + 1)
+
+    # Inserting a value at a negative index
+    def test_insert_value_at_negative_index(self):
+        linked_list = SinglyLinkedList([1, 2, 3, 4, 5])
+        with pytest.raises(IndexError):
+            linked_list.insert(6, -1)
+
+    # Inserting a value at index 0 in an empty linked list
+    def test_insert_value_at_index_0_in_empty_linked_list(self):
+        linked_list = SinglyLinkedList([])
+        expected_list = SinglyLinkedList([1])
+
+        linked_list.insert(1, 0)
+        assert linked_list == expected_list
+
+    def test_size_of_linked_list(self):
+        linked_list = SinglyLinkedList([])
+        expected_value = 1
+
+        linked_list.insert(1, 0)
+
+        assert len(linked_list) == expected_value
+
+        linked_list = SinglyLinkedList([1])
+        expected_value = 1
+
+        assert len(linked_list) == expected_value
