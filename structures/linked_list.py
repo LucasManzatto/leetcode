@@ -86,7 +86,6 @@ class SinglyLinkedList:
         is_iterable = isinstance(values, Iterable)
         if not is_iterable:
             raise ValueError("Input value must be iterable.")
-        last = self.tail
         for x in values:
             self.append(val=x)
 
