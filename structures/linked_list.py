@@ -4,7 +4,22 @@ import inspect
 
 
 class ListNode:
+    """
+    Represents a node in a linked list.
+
+    Attributes:
+        val: The value stored in the node.
+        next: A pointer to the next node in the linked list.
+        prev: A pointer to the previous node in the linked list.
+    """
+
     def __init__(self, x):
+        """
+        Initializes a new instance of the ListNode class with the given value x.
+
+        Args:
+            x: The value to be stored in the node.
+        """
         self.val = x
         self.next = None
         self.prev = None
@@ -22,6 +37,7 @@ class SinglyLinkedList:
         __init__(self, val: Any | list): Initialize a new singly linked list.
         append(self, val: Any): Append a value to the end of the linked list.
         extend(self, values: list): Extend the linked list with a list of values.
+        insert(self, val: Any, index: int): Inserts a value at a specific index in the linked list.
         push(self, val: Any): Prepend a value to the front of the linked list.
         last_node(self) -> ListNode: Get the last node of the linked list.
         middle_node(self) -> ListNode: Get the middle node of the linked list.
@@ -47,14 +63,13 @@ class SinglyLinkedList:
         if val is None:
             raise ValueError("Input value cannot be None.")
         is_iterable = isinstance(val, Iterable)
-        self.counter = 1
+        self.counter = 0
+        self.root = None
+        self.tail = None
         if is_iterable:
-            self.root = ListNode(x=val[0])
-            self.tail = self.root
-            self.extend(values=val[1:])
+            self.extend(values=val)
         else:
-            self.root = ListNode(x=val)
-            self.tail = self.root
+            self.append(val=val)
 
     def append(self, val: Any):
         """
@@ -68,10 +83,15 @@ class SinglyLinkedList:
         """
         if val is None:
             raise ValueError("Input value cannot be None.")
-        last = self.tail
-        last.next = ListNode(x=val)
-        self.tail = last.next
-        self.counter += 1
+        new_node = ListNode(x=val)
+        if not self.root:
+            self.root = new_node
+            self.tail = self.root
+        else:
+            last = self.tail
+            last.next = new_node
+            self.tail = last.next
+        self.increment_size()
 
     def extend(self, values: list):
         """
@@ -89,6 +109,34 @@ class SinglyLinkedList:
         for x in values:
             self.append(val=x)
 
+    def insert(self, val: Any, index: int):
+        """
+        Inserts a value at a specific index in the linked list.
+
+        Args:
+            val: The value to be inserted.
+            index: The index at which the value should be inserted.
+
+        Returns:
+            None. The method modifies the linked list in place.
+        """
+        if index < 0 or index > len(self):
+            raise IndexError("Index out of range")
+
+        if index == 0:
+            self.push(val=val)
+        elif index == len(self):
+            self.append(val=val)
+        else:
+            new_node = ListNode(val)
+            node = self.root
+            for _ in range(index - 1):
+                node = node.next
+            next = node.next
+            node.next = new_node
+            new_node.next = next
+            self.increment_size()
+
     def push(self, val: Any):
         """
         Prepend a value to the front of the linked list.
@@ -101,11 +149,15 @@ class SinglyLinkedList:
         """
         if val is None:
             raise ValueError("Input value cannot be None.")
-        node = ListNode(x=val)
-        node.next = self.root
-        self.root = node
-        self.counter += 1
-        return node
+        new_node = ListNode(x=val)
+        if not self.root:
+            self.root = new_node
+            self.tail = new_node
+        else:
+            new_node.next = self.root
+            self.root = new_node
+        self.increment_size()
+        return new_node
 
     def last_node(self) -> ListNode:
         """
@@ -226,6 +278,14 @@ class SinglyLinkedList:
         Space Complexity: O(1)
         """
         return self.counter
+
+    def increment_size(self):
+        """
+        Increments the counter.
+
+        :return: None
+        """
+        self.counter += 1
 
     def _equals(self, other) -> bool:
         if not type(self) == type(other):
