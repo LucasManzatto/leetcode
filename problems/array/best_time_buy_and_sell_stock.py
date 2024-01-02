@@ -22,16 +22,34 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        if sorted(prices, reverse=True) == prices:
+        if len(prices) < 2:
             return 0
-        max_profit = 0
-        for index, price in enumerate(prices):
-            for next_index, next_price in enumerate(prices[index:]):
-                if next_price - price > max_profit:
-                    max_profit = next_price - price
 
+        min_value = prices.pop(0)
+        max_profit = 0
+
+        for current_value in prices:
+            min_value = min(min_value, current_value)
+            current_profit = current_value - min_value
+            max_profit = max(max_profit, current_profit)
+
+        return max_profit
+
+    def maxProfit2(self, prices: List[int]) -> int:
+        left = 0  # Buy
+        right = 1  # Sell
+
+        max_profit = 0
+
+        while right < len(prices):
+            if prices[left] > prices[right]:
+                left = right
+            else:
+                current_profit = prices[right] - prices[left]
+                max_profit = max(max_profit, current_profit)
+            right += 1
         return max_profit
 
 
 prices = [7, 1, 5, 3, 6, 4]
-result = Solution().maxProfit(prices=prices)
+result = Solution().maxProfit2(prices=prices)
