@@ -34,44 +34,28 @@ class Solution:
     def insert(
         self, intervals: List[List[int]], newInterval: List[int]
     ) -> List[List[int]]:
-        if not intervals:
-            return [newInterval]
-        intervals.append(newInterval)
-        intervals = sorted(intervals)
+        i = 0
+        while i < len(intervals):
+            interval = intervals[i]
 
-        current = 0
-        while current < len(intervals) - 1:
-            current_value = intervals[current]
-            next_value = intervals[current + 1]
-
-            overlap_interval = self.overlaps(current_value, next_value)
-
-            # If there is a overlap, remove the current and next value, then add the overlap value
-            # Since 2 values are removed and only one added, the current index remains the same to check
-            # the new overlap value with the next value
-            if overlap_interval:
-                intervals.remove(current_value)
-                intervals.remove(next_value)
-                intervals.insert(current, overlap_interval)
+            # New interval is after the current interval
+            if interval[1] < newInterval[0]:
+                i += 1
+            # New interval's range is before the current interval
+            elif interval[0] > newInterval[1]:
+                intervals.insert(i, newInterval)
+                return intervals
+            # Overlapping intervals, merge them
             else:
-                current += 1
+                newInterval = [
+                    min(interval[0], newInterval[0]),
+                    max(interval[1], newInterval[1]),
+                ]
+                intervals.pop(i)
+
+        intervals.append(newInterval)
+
         return intervals
-
-    def overlaps(self, current, next):
-        """
-        Check if two intervals overlap and return the merged interval if they do.
-
-        Args:
-            current (List[int]): The first interval represented as [start, end].
-            next (List[int]): The second interval represented as [start, end].
-
-        Returns:
-            List[int] or None: The merged interval if there is an overlap, or None if there is no overlap.
-
-        """
-        if current[1] >= next[0]:
-            return [current[0], max(current[1], next[1])]
-        return None
 
 
 intervals = [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]]
