@@ -60,13 +60,10 @@ class SinglyLinkedList:
         Args:
             val (Union[Any, list]): The initial value of the linked list.
         """
-        if val is None:
-            raise ValueError("Input value cannot be None.")
-        is_iterable = isinstance(val, Iterable)
         self.counter = 0
         self.root = None
         self.tail = None
-        if is_iterable:
+        if isinstance(val, Iterable):
             self.extend(values=val)
         else:
             self.append(val=val)
@@ -91,7 +88,7 @@ class SinglyLinkedList:
             last = self.tail
             last.next = new_node
             self.tail = last.next
-        self.increment_size()
+        self._increment_size()
 
     def extend(self, values: list):
         """
@@ -135,7 +132,7 @@ class SinglyLinkedList:
             next = node.next
             node.next = new_node
             new_node.next = next
-            self.increment_size()
+            self._increment_size()
 
     def push(self, val: Any):
         """
@@ -156,7 +153,7 @@ class SinglyLinkedList:
         else:
             new_node.next = self.root
             self.root = new_node
-        self.increment_size()
+        self._increment_size()
         return new_node
 
     def last_node(self) -> ListNode:
@@ -279,7 +276,7 @@ class SinglyLinkedList:
         """
         return self.counter
 
-    def increment_size(self):
+    def _increment_size(self):
         """
         Increments the counter.
 
