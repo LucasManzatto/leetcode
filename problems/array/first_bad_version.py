@@ -44,15 +44,19 @@ Steps
 
 class Solution:
     def firstBadVersion(self, n: int) -> int:
-        min = 0
-        max = n
-        while min < max:
-            middle = (min + max) // 2
-            if isBadVersion(middle):
-                max = middle
+        left = 0
+        right = n - 1
+        while left <= right:
+            middle_index = (left + right) // 2
+            if isBadVersion(middle_index):
+                right = (
+                    middle_index - 1
+                )  # Narrow the search to the left half of the range
             else:
-                min = middle + 1
-        return min
+                left = (
+                    middle_index + 1
+                )  # Narrow the search to the right half of the range
+        return left  # Return the index of the first bad version
 
 
 def isBadVersion(version: int) -> bool:
