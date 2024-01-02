@@ -32,30 +32,21 @@ import math
 
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        start = 0
-        end = len(nums) - 1
-        while start <= end:
-            middle_index = (start + end) // 2
-            middle_number = nums[middle_index]
-            if target < middle_number:
-                end = middle_index - 1
-            elif target > middle_number:
-                start = middle_index + 1
-            elif target == middle_number:
-                return middle_index
-        return -1
-                
+        left = 0
+        right = len(nums) - 1
+        while left <= right:
+            middle_index = (left + right) // 2
+
+            if target == nums[middle_index]:
+                return middle_index  # Target found, return its index
+            elif target < nums[middle_index]:
+                right = middle_index - 1  # Search the left half
+            else:
+                left = middle_index + 1  # Search the right half
+
+        return -1  # Target not found
 
 
-nums = [-1,0,3,5,9,12]
+nums = [-1, 0, 3, 5, 9, 12]
 target = 3
 print(Solution().search(nums=nums, target=target))
-
-
-
-
-
-
-
-
-
