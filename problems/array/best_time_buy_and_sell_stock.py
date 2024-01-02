@@ -35,18 +35,24 @@ class Solution:
 
         return max_profit
 
+
     def maxProfit2(self, prices: List[int]) -> int:
-        left = 0  # Buy
-        right = 1  # Sell
+        left = 0  # Pointer for buying
+        right = 1  # Pointer for selling
 
         max_profit = 0
 
         while right < len(prices):
+            # Check if the price at the buying pointer is greater than the price at the selling pointer
+            # If so, update the buying pointer to the selling pointer
             if prices[left] > prices[right]:
                 left = right
             else:
+                # Calculate the current profit by subtracting the buying price from the selling price
                 current_profit = prices[right] - prices[left]
+                # Update the maximum profit if the current profit is greater
                 max_profit = max(max_profit, current_profit)
+
             right += 1
         return max_profit
 
