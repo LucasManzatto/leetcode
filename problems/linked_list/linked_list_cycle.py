@@ -43,12 +43,12 @@ from structures.linked_list import ListNode
 
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
-        first_pointer = head
-        second_pointer = head
-        while second_pointer and second_pointer.next:
-            first_pointer = first_pointer.next
-            second_pointer = second_pointer.next.next
-            if first_pointer == second_pointer:
+        left = head
+        right = head
+        while right and right.next:
+            left = left.next
+            right = right.next.next
+            if left == right:
                 return True
         return False
 

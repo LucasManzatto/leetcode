@@ -45,16 +45,16 @@ class Solution:
                 alpha_s += char
         if not alpha_s:
             return True
-        start = 0
-        end = len(alpha_s) - 1
-        print(start, end)
-        while start < end:
-            if alpha_s[start] != alpha_s[end]:
+        left = 0
+        right = len(alpha_s) - 1
+        while left < right:
+            if alpha_s[left] != alpha_s[right]:
                 return False
-            start += 1
-            end -= 1
+            left += 1
+            right -= 1
         return True
 
 
 s = "aa"
 print(Solution().isPalindrome2(s=s))
+
