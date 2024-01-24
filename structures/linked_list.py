@@ -197,12 +197,12 @@ class SinglyLinkedList:
         Time Complexity: O(n), where n is the number of nodes in the linked list.
         Space Complexity: O(1)
         """
-        first_pointer = self.root
-        second_pointer = self.root
-        while second_pointer and second_pointer.next:
-            first_pointer = first_pointer.next
-            second_pointer = second_pointer.next.next
-            if first_pointer == second_pointer:
+        slow = self.root
+        fast = self.root
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
                 return True
         return False
 
