@@ -179,10 +179,60 @@ class BinaryTree:
         self._post_order_traversal(root=root.left)
         print(root.val)
 
+    def height(self, root: TreeNode):
+        """
+        Calculate the height of a binary tree.
+
+        Parameters:
+        - root: The root node of the binary tree.
+
+        Returns:
+        - The height of the binary tree.
+
+        Example:
+        height(root) -> 3
+
+        Note:
+        The height of a binary tree is defined as the number of edges in the longest path from the root node to any leaf node. If the tree is empty, the height is 0.
+        """
+        if not root:
+            return 0
+        return max(self.height(root.left), self.height(root.right)) + 1
+
+    def is_balanced(self) -> bool:
+        """
+        Check if a binary tree is balanced.
+
+        Parameters:
+        - root (TreeNode): The root node of the binary tree.
+
+        Returns:
+        - bool: True if the binary tree is balanced, False otherwise.
+
+        Time Complexity: O(n), where n is the number of nodes in the tree.
+        Space Complexity: O(h), where h is the height of the tree (due to the call stack).
+
+        Note:
+        A binary tree is considered balanced if the heights of the left and right subtrees differ by at most 1. An empty tree is also considered balanced.
+        """
+        return self._is_balanced(root=self.root)
+
+    def _is_balanced(self, root: TreeNode) -> bool:
+        if not root:
+            return True
+        left = self.height(root.left)
+        right = self.height(root.right)
+        
+        return (
+            abs(left - right) <= 1
+            and self._is_balanced(root.left)
+            and self._is_balanced(root.right)
+        )
+
 
 # Example usage of the BinaryTree class
 if __name__ == "__main__":
-    values = [10, 5, 15, 3, 7, 12, 18]
+    values = [3, 9, 20, 15, 7]
 
     # Create a binary tree
     binary_tree = BinaryTree(val=values)
@@ -205,4 +255,6 @@ if __name__ == "__main__":
     # Perform post-order traversal on the reversed tree
     print("Reversed Tree (Post-order Traversal):")
     binary_tree.post_order_traversal()
-    
+
+    # Check if the tree is balanced
+    print(f"Tree is balanced: {binary_tree.is_balanced()}")
