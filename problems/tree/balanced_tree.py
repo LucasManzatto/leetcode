@@ -38,6 +38,21 @@ class Solution:
 
 
 def height(root):
+    """
+    Calculate the height of a binary tree.
+
+    Parameters:
+    - root: The root node of the binary tree.
+
+    Returns:
+    - The height of the binary tree.
+
+    Example:
+    height(root) -> 3
+
+    Note:
+    The height of a binary tree is defined as the number of edges in the longest path from the root node to any leaf node. If the tree is empty, the height is 0.
+    """
     if not root:
         return 0
     return max(height(root.left), height(root.right)) + 1
