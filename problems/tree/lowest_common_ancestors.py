@@ -31,7 +31,7 @@ All Node are unique.
 p != q
 p and q will exist in the BST.
 """
-from utils.binary_tree import TreeNode, in_order_traversal
+from utils.binary_tree import TreeNode
 
 
 class Solution:
