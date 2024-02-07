@@ -222,12 +222,22 @@ class BinaryTree:
             return True
         left = self.height(root.left)
         right = self.height(root.right)
-        
+
         return (
             abs(left - right) <= 1
             and self._is_balanced(root.left)
             and self._is_balanced(root.right)
         )
+
+    def print_2d_tree(self, root, space=0):
+        if root == None:
+            return
+        space += 5
+        self.print_2d_tree(root.right, space)
+        for _ in range(5, space):
+            print(end=" ")
+        print("|" + str(root.val) + "|<")
+        self.print_2d_tree(root.left, space)
 
 
 # Example usage of the BinaryTree class
