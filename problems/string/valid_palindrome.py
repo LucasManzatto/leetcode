@@ -57,4 +57,3 @@ class Solution:
 
 s = "aa"
 print(Solution().isPalindrome2(s=s))
-

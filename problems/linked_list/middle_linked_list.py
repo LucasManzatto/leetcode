@@ -24,6 +24,7 @@ Constraints:
 The number of nodes in the list is in the range [1, 100].
 1 <= Node.val <= 100
 """
+
 from typing import Optional
 from structures.linked_list import ListNode
 

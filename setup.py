@@ -6,5 +6,5 @@ setup(
     description="Leetcode problems with data structures",
     author="Lucas",
     author_email="",
-    packages=find_packages(exclude=('tests', 'docs'))
+    packages=find_packages(exclude=("tests", "docs")),
 )

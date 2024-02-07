@@ -27,6 +27,7 @@ The number of nodes in the list is the range [0, 5000].
 
 Follow up: A linked list can be reversed either iteratively or recursively. Could you implement both?
 """
+
 from typing import Optional
 from structures.linked_list import ListNode
 
@@ -43,7 +44,7 @@ class Solution:
             current.next = previous  # reverses the direction of the current node's next pointer, making it point to the previous node.
             previous = current
             current = next
-        return previous # previous is the new head of the list (Last element)
+        return previous  # previous is the new head of the list (Last element)
 
 
 root = ListNode(1)
@@ -61,4 +62,3 @@ result = Solution().reverseList(head=root)
 while result:
     print(result.val)
     result = result.next
-

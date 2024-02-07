@@ -94,9 +94,8 @@ class Solution:
         return image
 
 
-image = [[1,1,1],[1,1,0],[1,0,1]]
+image = [[1, 1, 1], [1, 1, 0], [1, 0, 1]]
 sr = 1
 sc = 1
 color = 2
 print(Solution().floodFill(image=image, sr=sr, sc=sc, color=color))
-

@@ -41,6 +41,7 @@ Follow up: Can you solve it using O(1) (i.e. constant) memory?
 from typing import Optional
 from structures.linked_list import ListNode
 
+
 class Solution:
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         left = head
@@ -63,4 +64,3 @@ value1.next = root
 
 result = Solution().hasCycle(head=root)
 print(result)
-

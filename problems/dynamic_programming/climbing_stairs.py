@@ -27,16 +27,19 @@ Constraints:
 1 <= n <= 45
 """
 
+
 class Solution:
-    fib_memory = {0:0, 1:1, 2:2}
-    
+    fib_memory = {0: 0, 1: 1, 2: 2}
+
     def climbStairs(self, n: int) -> int:
         if n in self.fib_memory:
             return self.fib_memory[n]
-        
-        result = self.climbStairs(n-1) + self.climbStairs(n-2)
+
+        result = self.climbStairs(n - 1) + self.climbStairs(n - 2)
         self.fib_memory[n] = result
         return result
+
+
 n = 10
 result = Solution().climbStairs(n=n)
 print(result)

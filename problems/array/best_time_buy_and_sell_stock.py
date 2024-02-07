@@ -35,7 +35,6 @@ class Solution:
 
         return max_profit
 
-
     def maxProfit2(self, prices: List[int]) -> int:
         left = 0  # Pointer for buying
         right = 1  # Pointer for selling

@@ -27,6 +27,7 @@ intervals is sorted by starti in ascending order.
 newInterval.length == 2
 0 <= start <= end <= 105
 """
+
 from typing import List
 
 

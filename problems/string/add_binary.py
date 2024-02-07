@@ -28,6 +28,5 @@ class Solution:
 
 a = "1010"
 b = "1011"
-result = Solution().addBinary(a=a,b=b)
+result = Solution().addBinary(a=a, b=b)
 print(result)
-

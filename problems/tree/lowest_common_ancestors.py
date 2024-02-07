@@ -31,6 +31,7 @@ All Node are unique.
 p != q
 p and q will exist in the BST.
 """
+
 from utils.binary_tree import TreeNode
 
 
@@ -45,6 +46,7 @@ class Solution:
         if result_left and result_right:
             return root
         return result_left or result_right
+
 
 root = TreeNode(val=6)
 root.left = TreeNode(val=2)
@@ -68,4 +70,3 @@ root.left.right.right = TreeNode(val=5)
 p = TreeNode(val=3)
 q = TreeNode(val=5)
 print(Solution().lowestCommonAncestor(root=root, p=p, q=q).val)
-
